@@ -140,6 +140,7 @@ lazy val assemblySettings = Seq(
     ShadeRule.rename("org.apache.commons.**" -> "@0").inAll, // Initialization via reflection fails when package changed
     ShadeRule.rename("org.xerial.snappy.**" -> "@0").inAll, // Snappy fails to resolve native code when package changed
     ShadeRule.rename("com.databricks.**" -> "@0").inAll, // Scala package object does not resolve correctly when package changed
+    ShadeRule.rename("com.codahale.**" -> "@0").inAll, // NoSuchMethodError org.apache.spark.metrics.source.CodegenMetrics$.METRIC_GENERATED_CLASS_BYTECODE_SIZE()Lshadedelta/com/codahale/metrics/Histogram;
 
     // Shade everything else
     ShadeRule.rename("com.**" -> "shadedelta.@0").inAll,
