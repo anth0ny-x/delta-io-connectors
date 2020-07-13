@@ -29,25 +29,21 @@ You can also use the following instructions to build them.
 
 Please skip this section if you have downloaded the connector JARs.
 
-- To compile the project, run `build/sbt hive/compile`
-- To test the project, run `build/sbt hive/test`
-- To generate the connector jar run `build/sbt hive/package`
+- To generate the connector jar run 
+```
+build/sbt -Dsbt.repository.config=build/sbt-config/repositories "++2.11.12 core/package"
+build/sbt -Dsbt.repository.config=build/sbt-config/repositories "++2.11.12 hive/package"
+```
 
 The above commands will generate two JARs in the following paths.
 
 ```
-core/target/scala-2.12/delta-core-shaded-assembly_2.12-0.1.0.jar
-hive/target/scala-2.12/hive-delta_2.12-0.1.0.jar
+core/target/scala-2.11/delta-core-shaded-assembly_2.12-0.1.0-cdh6.3.3.jar
+hive/target/scala-2.11/hive-delta_2.12-0.1.0.jar
 ```
 
 These two JARs include the Hive connector and all its dependencies. They need to be put in Hive’s classpath.
 
-Note: if you would like to build jars using Scala 2.11, you can run the SBT command `build/sbt "++ 2.11.12 hive/package"` and the generated JARS will be in the following paths.
-
-```
-core/target/scala-2.11/delta-core-shaded-assembly_2.11-0.1.0.jar
-hive/target/scala-2.12/hive-delta_2.11-0.1.0.jar
-```
 
 ### Setting up Hive
 
