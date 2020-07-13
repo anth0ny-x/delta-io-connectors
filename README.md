@@ -39,7 +39,7 @@ The above commands will generate two JARs in the following paths.
 
 ```
 core/target/scala-2.11/delta-core-shaded-assembly_2.12-0.1.0-cdh6.3.3.jar
-hive/target/scala-2.11/hive-delta_2.12-0.1.0.jar
+hive/target/scala-2.11/hive-delta_2.12-0.1.0-cdh6.3.3.jar
 ```
 
 These two JARs include the Hive connector and all its dependencies. They need to be put in Hive’s classpath.
