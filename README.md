@@ -51,29 +51,18 @@ hive/target/scala-2.12/hive-delta_2.11-0.1.0.jar
 
 ### Setting up Hive
 
-This sections describes how to set up Hive to load the Delta Hive connector.
+This sections describes how to set up CDH 6.3.3 Hive to load the Delta Hive connector.
 
-Before starting your Hive CLI or running your Hive script, add the following special Hive config to the `hive-site.xml` file (Its location is `/etc/hive/conf/hive-site.xml` in a EMR cluster).
+Upload the above two JARs to the machine runs Hive Server2. Finally, add the paths of the JARs toHive’s environment variable, `HIVE_AUX_JARS_PATH`. You can find this environment variable in the `hive-env.sh` file, whose location is `/etc/hive/conf/hive-env.sh` on an EMR cluster. This setting will tell Hive where to find the connector JARs.
 
-```xml
-<property>
-  <name>hive.input.format</name>
-  <value>io.delta.hive.HiveInputFormat</value>
-</property>
-<property>
-  <name>hive.tez.input.format</name>
-  <value>io.delta.hive.HiveInputFormat</value>
-</property>
-```
-
-Alternatively, you can also run the following SQL commands in Hive CLI before reading Delta tables to set `io.delta.hive.HiveInputFormat`:
-
-```
-SET hive.input.format=io.delta.hive.HiveInputFormat;
-SET hive.tez.input.format=io.delta.hive.HiveInputFormat;
-```
-
-The second step is to upload the above two JARs to the machine that runs Hive. Finally, add the paths of the JARs toHive’s environment variable, `HIVE_AUX_JARS_PATH`. You can find this environment variable in the `hive-env.sh` file, whose location is `/etc/hive/conf/hive-env.sh` on an EMR cluster. This setting will tell Hive where to find the connector JARs.
+The following files are also required to be copied into `HIVE_AUX_JARS_PATH`;
+  ```
+  /opt/cloudera/parcels/CDH/jars/chill_2.11-0.9.2.jar
+  /opt/cloudera/parcels/CDH/jars/kryo-shaded-3.0.3.jar
+  /opt/cloudera/parcels/CDH/jars/minlog-1.3.0.jar
+  /opt/cloudera/parcels/CDH/jars/objenesis-2.5.1.jar
+  /opt/cloudera/parcels/CDH/jars/xbean-asm7-shaded-4.12.jar
+  ```
 
 ### Create a Hive table
 
@@ -94,7 +83,7 @@ LOCATION '/delta/table/path'
 ### Frequently asked questions (FAQ)
 
 #### Supported Hive versions
-Hive 2.x.
+CDH 6.3.3
 
 #### Can I use this connector in Apache Spark or Presto?
 No. The connector **must** be used with Apache Hive. It doesn't work in other systems, such as Apache Spark or Presto.
